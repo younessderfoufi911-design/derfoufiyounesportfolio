@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#101010">
+    <title>Younes Derfoufi - Portfolio Mobile</title>
+    <link href="https://cdn.jsdelivr.net/npm/aos@3.0.0-beta.6/dist/aos.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #101010;
+            color: #e0e0e0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Background */
+        .bg-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('bg.jpg');
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+        }
+
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(16, 16, 16, 0.85), rgba(16, 16, 16, 0.95));
+            z-index: -1;
+        }
+
+        /* Mobile Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(16, 16, 16, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid rgba(220, 38, 38, 0.2);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #dc2626;
+        }
+
+        .menu-toggle {
+            width: 30px;
+            height: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 100%;
+            height: 3px;
+            background: #dc2626;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 75%;
+            height: 100vh;
+            background: rgba(16, 16, 16, 0.98);
+            backdrop-filter: blur(20px);
+            padding: 5rem 2rem 2rem;
+            transition: right 0.4s ease;
+            z-index: 999;
+        }
+
+        .nav-menu.active {
+            right: 0;
+        }
+
+        .nav-menu ul {
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-bottom: 2rem;
+        }
+
+        .nav-menu a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: block;
+            padding: 0.5rem 0;
+            border-left: 3px solid transparent;
+            padding-left: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: #dc2626;
+            border-left-color: #dc2626;
+            transform: translateX(10px);
+        }
+
+        /* Hero Section Mobile */
+        header {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 6rem 1.5rem 2rem;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(220, 38, 38, 0.2);
+            border: 1px solid rgba(220, 38, 38, 0.4);
+            border-radius: 20px;
+            color: #ff6b6b;
+            font-size: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .badge-dot {
+            width: 6px;
+            height: 6px;
+            background: #dc2626;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-greeting {
+            display: block;
+            font-size: 1rem;
+            color: #888;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-name {
+            display: block;
+            background: linear-gradient(135deg, #ffffff 0%, #dc2626 50%, #ffffff 100%);
+            background-size: 200% auto;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: #dc2626;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .hero-description {
+            font-size: 0.95rem;
+            color: #b0b0b0;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .hero-description strong {
+            color: #dc2626;
+        }
+
+        /* CTA Buttons Mobile */
+        .hero-cta {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .cta-primary {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: white;
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
+        }
+
+        .cta-secondary {
+            background: rgba(26, 26, 26, 0.8);
+            color: white;
+            border: 2px solid rgba(220, 38, 38, 0.3);
+        }
+
+        /* Stats Mobile */
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem 1rem;
+            background: rgba(26, 26, 26, 0.6);
+            border-radius: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #dc2626;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: #888;
+            text-transform: uppercase;
+        }
+
+        /* Social Links Mobile */
+        .hero-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(26, 26, 26, 0.6);
+            border: 1px solid rgba(220, 38, 38, 0.2);
+            border-radius: 50%;
+            color: #888;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:active {
+            transform: scale(0.95);
+            background: rgba(220, 38, 38, 0.2);
+            color: #dc2626;
+        }
+
+        /* Sections Mobile */
+        section {
+            padding: 3rem 1.5rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        /* About Section Mobile */
+        .about-content {
+            background: rgba(26, 26, 26, 0.9);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(220, 38, 38, 0.2);
+        }
+
+        .profile-intro {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .gradient-text {
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #dc2626, #ff6b6b);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .about-content p {
+            font-size: 0.95rem;
+            color: #c0c0c0;
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: #dc2626;
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(220, 38, 38, 0.3);
+        }
+
+        /* Timeline Mobile */
+        .timeline {
+            padding-left: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #dc2626, transparent);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -1.3rem;
+            top: 0.3rem;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #dc2626;
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
+        }
+
+        .timeline-content {
+            background: rgba(20, 20, 20, 0.6);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid #dc2626;
+        }
+
+        .timeline-date {
+            display: inline-block;
+            background: #dc2626;
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content h4 {
+            color: #ffffff;
+            font-size: 1rem;
+            margin: 0.3rem 0;
+        }
+
+        .timeline-content p {
+            color: #b0b0b0;
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        /* Experience Cards Mobile */
+        .experience-card {
+            background: rgba(20, 20, 20, 0.6);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(220, 38, 38, 0.2);
+        }
+
+        .exp-header {
+            margin-bottom: 0.8rem;
+        }
+
+        .exp-badge {
+            display: inline-block;
+            background: #dc2626;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .exp-header h4 {
+            color: #ffffff;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .exp-company {
+            color: #dc2626;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .exp-desc {
+            color: #c0c0c0;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        /* Goals Mobile */
+        .goals-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .goal-card {
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(220, 38, 38, 0.05));
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(220, 38, 38, 0.2);
+        }
+
+        .goal-icon {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 0.8rem;
+        }
+
+        .goal-card p {
+            color: #c0c0c0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Skills Mobile */
+        .skills-bubble-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .skill-bubble {
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.2), rgba(220, 38, 38, 0.05));
+            border: 2px solid rgba(220, 38, 38, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .skill-category {
+            background: rgba(20, 20, 20, 0.6);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(220, 38, 38, 0.2);
+        }
+
+        .skill-category h3 {
+            color: #dc2626;
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .skill-category ul {
+            list-style: none;
+        }
+
+        .skill-category li {
+            padding: 0.3rem 0;
+            color: #b0b0b0;
+            font-size: 0.85rem;
+        }
+
+        .skill-category li:before {
+            content: "▹ ";
+            color: #dc2626;
+            margin-right: 0.5rem;
+        }
+
+        /* Projects Mobile */
+        .project-item {
+            background: rgba(26, 26, 26, 0.9);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(220, 38, 38, 0.2);
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .project-item:active {
+            transform: scale(0.98);
+            border-color: #dc2626;
+        }
+
+        .project-item h3 {
+            color: #ffffff;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-item p {
+            color: #b0b0b0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Popup Mobile */
+        .project-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 1rem;
+        }
+
+        .project-popup.active {
+            display: flex;
+        }
+
+        .popup-content {
+            background: #1a1a1a;
+            padding: 2rem 1.5rem;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid rgba(220, 38, 38, 0.3);
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 2rem;
+            color: #888;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .popup-content h3 {
+            color: #dc2626;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .popup-content p {
+            color: #c0c0c0;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .download-btn {
+            display: block;
+            width: 100%;
+            background: #dc2626;
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Contact Mobile */
+        .contact-content {
+            background: rgba(26, 26, 26, 0.9);
+            padding: 2rem 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(220, 38, 38, 0.2);
+            text-align: center;
+        }
+
+        .contact-details {
+            margin: 1.5rem 0;
+        }
+
+        .contact-detail-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .contact-detail-item span:first-child {
+            color: #dc2626;
+            font-weight: 600;
+        }
+
+        .linkedin-btn {
+            display: block;
+            background: #0077b5;
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        /* Footer Mobile */
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: rgba(10, 10, 10, 0.95);
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        /* Easter Egg */
+        .easter-egg {
+            display: none;
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(220, 38, 38, 0.05));
+            border-left: 3px solid #dc2626;
+            border-radius: 8px;
+        }
+
+        .clickable-name {
+            color: #dc2626;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-image"></div>
+    <div class="bg-overlay"></div>
+
+    <!-- Navigation Mobile -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">YD</div>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="nav-menu" id="navMenu">
+            <ul>
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#apropos">À propos</a></li>
+                <li><a href="#projects">Projets</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="accueil">
+        <div class="hero-badge">
+            <span class="badge-dot"></span>
+            Disponible
+        </div>
+        <h1>
+            <span class="hero-greeting">Bonjour, je suis</span>
+            <span class="hero-name">Younes Derfoufi</span>
+        </h1>
+        <p class="hero-subtitle">Élève Ingénieur Géomètre</p>
+        <p class="hero-description">
+            Passionné par l'innovation en <strong>SIG</strong>, <strong>automatisation</strong> et <strong>analyse géospatiale</strong>.
+        </p>
+
+        <div class="hero-cta">
+            <a href="#projects" class="cta-btn cta-primary">
+                <span>Voir mes projets</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+            <a href="#contact" class="cta-btn cta-secondary">
+                <span>Me contacter</span>
+            </a>
+        </div>
+
+        <div class="hero-stats">
+            <div class="stat-item">
+                <span class="stat-number">Bac+5</span>
+                <span class="stat-label">Études</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">2+</span>
+                <span class="stat-label">Projets</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">3</span>
+                <span class="stat-label">Stages</span>
+            </div>
+        </div>
+
+        <div class="hero-social">
+            <a href="mailto:younesderfoufi111@gmail.com" class="social-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+            </a>
+            <a href="https://www.linkedin.com/in/younes-derfoufi-6547b3373/" class="social-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+                </svg>
+            </a>
+            <a href="tel:+212634177090" class="social-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                </svg>
+            </a>
+        </div>
+    </header>
+
+    <!-- À propos Section (version simplifiée pour mobile) -->
+    <section id="apropos">
+        <h2>À propos</h2>
+        <div class="about-content">
+            <div class="profile-intro">
+                <h3 class="gradient-text">👋 Qui suis-je ?</h3>
+                <p>Élève ingénieur géomètre topographe avec des compétences en <strong>SIG</strong>, <strong>bases de données spatiales</strong> et <strong>automatisation</strong>.</p>
+            </div>
+
+            <h3 class="section-title">🎓 Formation</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">2023 - Auj.</span>
+                        <h4>Sciences Géomatiques</h4>
+                        <p>IAV Hassan II</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">2021 - 2023</span>
+                        <h4>CPGE Maths-Physiques</h4>
+                        <p>CPGE OBK Meknès</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="section-title">💼 Expériences</h3>
+            <div class="experience-card">
+                <div class="exp-header">
+                    <span class="exp-badge">Sept - Oct 2025</span>
+                    <h4>Stage d'Entreprise</h4>
+                </div>
+                <p class="exp-company">MAPTOPO SARL</p>
+                <p class="exp-desc">Application terrain des compétences théoriques.</p>
+            </div>
+
+            <div class="experience-card">
+                <div class="exp-header">
+                    <span class="exp-badge">Avril - Mai 2025</span>
+                    <h4>Stage Professionnalisation</h4>
+                </div>
+                <p class="exp-company">Sidi Allal El Bahraoui</p>
+                <p class="exp-desc">3 projets en topographie et photogrammétrie.</p>
+            </div>
+
+            <h3 class="section-title">🎯 Objectifs</h3>
+            <div class="goals-grid">
+                <div class="goal-card">
+                    <span class="goal-icon">📊</span>
+                    <p>Management et gestion stratégique</p>
+                </div>
+                <div class="goal-card">
+                    <span class="goal-icon">🚀</span>
+                    <p>Optimisation workflows géospatiaux</p>
+                </div>
+            </div>
+
+            <p style="margin-top: 1.5rem; text-align: center;">
+                Je suis <span class="clickable-name" id="clickableName">Younes Derfoufi</span>, 
+                ravi de collaborer ! 🤝
+            </p>
+
+            <div class="easter-egg" id="easterEgg">
+                <p>Producteur EDM et cofondateur de Framopia (photo/vidéo). Merci de cette découverte ! 🎶📸</p>
+            </div>
+
+            <h3 class="section-title">💪 Compétences</h3>
+            <div class="skills-bubble-container">
+                <div class="skill-bubble"><span>Web Mapping</span></div>
+                <div class="skill-bubble"><span>SIG Avancé</span></div>
+                <div class="skill-bubble"><span>BD Spatiales</span></div>
+                <div class="skill-bubble"><span>Topographie</span></div>
+                <div class="skill-bubble"><span>Photogrammétrie</span></div>
+                <div class="skill-bubble"><span>Géodésie</span></div>
+            </div>
+
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Topographie</h3>
+                    <ul>
+                        <li>GNSS & Station totale</li>
+                        <li>Nivellement précision</li>
+                        <li>Plans topographiques</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>SIG & BD</h3>
+                    <ul>
+                        <li>QGIS & Analyse spatiale</li>
+                        <li>PostGIS & DuckDB</li>
+                        <li>Web Mapping</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Programmation</h3>
+                    <ul>
+                        <li>Python géospatial</li>
+                        <li>SQL avancé</li>
+                        <li>Automatisation</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Télédétection</h3>
+                    <ul>
+                        <li>Classification images</li>
+                        <li>Indices spectraux</li>
+                        <li>MNT & Orthophotos</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2>Mes Projets</h2>
+        <div class="projects-container">
+            <div class="project-item" data-pdf="https://drive.google.com/file/d/1aEeKyZ8tbrUc_caOgeAc4nKIphn2-M-c/view?usp=sharing">
+                <h3>SVM vs ML vs RF</h3>
+                <p>Trois méthodes de classification pour la carte d'occupation du sol de Meknès</p>
+            </div>
+
+            <div class="project-item" data-pdf="https://drive.google.com/file/d/1BXLNymM4r_VonBFz62wNdzAgcRlkT0XO/view?usp=sharing">
+                <h3>DuckDB vs PostGIS</h3>
+                <p>Benchmarking des solutions BDS dans différents scénarios</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popup -->
+    <div class="project-popup" id="projectPopup">
+        <div class="popup-content">
+            <span class="close-btn" id="closePopup">&times;</span>
+            <h3 id="popupTitle"></h3>
+            <p id="popupDescription"></p>
+            <a id="pdfLink" href="" target="_blank" class="download-btn">📄 Télécharger le PDF</a>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contactez-moi</h2>
+        <div class="contact-content">
+            <p>Intéressé par une collaboration ?</p>
+            
+            <div class="contact-details">
+                <div class="contact-detail-item">
+                    <span>📧</span>
+                    <span>younesderfoufi111@gmail.com</span>
+                </div>
+                <div class="contact-detail-item">
+                    <span>📱</span>
+                    <span>+212 6 34 17 70 90</span>
+                </div>
+            </div>
+            
+            <a href="https://www.linkedin.com/in/younes-derfoufi-6547b3373/" target="_blank" class="linkedin-btn">
+                Voir mon profil LinkedIn
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Younes Derfoufi<br>Ingénieur Géomètre Topographe</p>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Easter egg
+        let easterEggClicked = false;
+        document.getElementById('clickableName').addEventListener('click', function() {
+            if (!easterEggClicked) {
+                document.getElementById('easterEgg').style.display = 'block';
+                easterEggClicked = true;
+            }
+        });
+
+        // Project Popup
+        const projects = document.querySelectorAll('.project-item');
+        const popup = document.getElementById('projectPopup');
+        const closePopup = document.getElementById('closePopup');
+        const pdfLink = document.getElementById('pdfLink');
+        const popupTitle = document.getElementById('popupTitle');
+        const popupDescription = document.getElementById('popupDescription');
+
+        projects.forEach(proj => {
+            proj.addEventListener('click', () => {
+                const title = proj.querySelector('h3').textContent;
+                const desc = proj.querySelector('p').textContent;
+                let pdf = proj.getAttribute('data-pdf');
+
+                // Convert Google Drive link to direct download
+                if (pdf.includes('drive.google.com')) {
+                    const fileId = pdf.match(/\/d\/(.+?)\//)?.[1] || pdf.match(/id=(.+?)(&|$)/)?.[1];
+                    if (fileId) {
+                        pdf = `https://drive.google.com/uc?export=download&id=${fileId}`;
+                    }
+                }
+
+                popupTitle.textContent = title;
+                popupDescription.textContent = desc;
+                pdfLink.href = pdf;
+
+                popup.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        closePopup.addEventListener('click', () => {
+            popup.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        popup.addEventListener('click', (e) => {
+            if (e.target === popup) {
+                popup.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Prevent zoom on double tap
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', (event) => {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
+</html>
