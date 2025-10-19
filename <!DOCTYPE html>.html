@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Younes Derfoufi - Ingénieur Géomètre Topographe</title>
+    <style>
+        /* === YOUR ORIGINAL CSS - CONSOLIDATED & CLEANED === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform, opacity;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #101010;
+            color: #e0e0e0;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+            opacity: 0;
+            transform: scale(1.02);
+            animation: pageEnter 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        
+        /* FIX: Added rule to apply blur effect when popup is active */
+        body.blur-active > *:not(.project-popup) {
+            filter: blur(12px) brightness(0.8);
+            transition: filter 0.4s ease;
+            pointer-events: none;
+        }
+
+        @keyframes pageEnter {
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .bg-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('bg.jpg'); /* Ensure this image exists */
+            background-size: cover !important;
+            background-position: center center !important;
+            z-index: -1;
+            transition: transform 0.2s ease-out;
+            will-change: transform;
+        }
+
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(16, 16, 16, 0.7), rgba(16, 16, 16, 0.95));
+            z-index: -1;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(16, 16, 16, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 1.2rem;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            font-size: 0.95rem;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        nav a:hover {
+            color: #dc2626;
+            transform: translateY(-2px);
+        }
+
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            cursor: pointer;
+            position: relative;
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 0 5px rgba(220, 38, 38, 0.3)); }
+            50% { filter: drop-shadow(0 0 15px rgba(220, 38, 38, 0.6)); }
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: #888;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #b0b0b0;
+            font-size: 0.95rem;
+        }
+
+        section {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .about-content {
+            background-color: rgba(26, 26, 26, 0.9);
+            padding: 3rem;
+            border-radius: 12px;
+            border: 1px solid #2a2a2a;
+            line-height: 1.8;
+            backdrop-filter: blur(10px);
+        }
+
+        .about-content:hover, .contact-content:hover, .skill-category:hover {
+            box-shadow: 0 0 25px rgba(220, 38, 38, 0.25);
+            transform: translateY(-5px);
+        }
+
+        .about-content p {
+            margin-bottom: 1.5rem;
+            color: #c0c0c0;
+            font-size: 1.05rem;
+        }
+
+        .clickable-name {
+            color: #dc2626;
+            cursor: pointer;
+            text-decoration: underline;
+            text-decoration-color: transparent;
+        }
+
+        .clickable-name:hover {
+            text-decoration-color: #dc2626;
+            text-shadow: 0 0 10px rgba(220, 38, 38, 0.5);
+        }
+
+        .easter-egg {
+            display: none;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(220, 38, 38, 0.05));
+            border-left: 3px solid #dc2626;
+            border-radius: 8px;
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .easter-egg p {
+            display: inline-block;
+            overflow: hidden;
+            border-right: .15em solid #dc2626;
+            white-space: normal;
+            width: 0;
+            animation: typing 4s steps(80, end) forwards, blink-caret .75s step-end infinite;
+            word-break: break-word;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #dc2626; }
+        }
+        
+        .skills-chart {
+            margin: 3rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+        }
+
+        .skills-bubble-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            max-width: 800px;
+        }
+
+        .skill-bubble {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.2), rgba(220, 38, 38, 0.05));
+            border: 2px solid rgba(220, 38, 38, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1rem;
+            animation: float 3s ease-in-out infinite;
+            cursor: default;
+        }
+
+        .skill-bubble:nth-child(2) { animation-delay: 0.5s; }
+        .skill-bubble:nth-child(3) { animation-delay: 1s; }
+        .skill-bubble:nth-child(4) { animation-delay: 1.5s; }
+        .skill-bubble:nth-child(5) { animation-delay: 2s; }
+        .skill-bubble:nth-child(6) { animation-delay: 2.5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .skill-bubble:hover {
+            transform: scale(1.15) translateY(-10px);
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.4), rgba(220, 38, 38, 0.15));
+            border-color: rgba(220, 38, 38, 0.6);
+            box-shadow: 0 0 30px rgba(220, 38, 38, 0.4);
+        }
+
+        .skill-bubble span {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        /* === PROJECTS SECTION === */
+        /* FIX: Consolidated your multiple .project-item rules into one for clarity */
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            z-index: 2;
+            position: relative;
+        }
+        
+        .project-item {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            text-align: left;
+            color: #fff;
+            cursor: pointer;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 0 10px rgba(220,38,38,0.15);
+        }
+
+        .project-item:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 0 25px rgba(220,38,38,0.3);
+            background: rgba(255,255,255,0.08);
+        }
+
+        .project-item h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .project-item p {
+            color: rgba(255,255,255,0.8);
+            line-height: 1.4;
+        }
+
+        /* === POPUP STYLES === */
+        .project-popup {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.55);
+            backdrop-filter: blur(10px);
+            display: none; /* Controlled by JS */
+            align-items: center;
+            justify-content: center;
+            z-index: 2000; /* Ensure it's on top */
+            animation: fadeInPopup 0.4s ease;
+        }
+
+        /* FIX: Added .active class to control visibility */
+        .project-popup.active {
+            display: flex;
+        }
+
+        @keyframes fadeInPopup {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .popup-content {
+            background-color: #1a1a1a;
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 90%;
+            border: 1px solid #2a2a2a;
+            position: relative;
+        }
+
+        .popup-content .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2rem;
+            color: #888;
+            cursor: pointer;
+            line-height: 1;
+        }
+        
+        .popup-content .close-btn:hover {
+            color: #fff;
+        }
+        
+        .popup-content h3 {
+           font-size: 1.8rem;
+           margin-bottom: 1rem;
+           color: #dc2626;
+        }
+
+        /* === CONTACT SECTION === */
+        .contact-content {
+            background-color: rgba(26, 26, 26, 0.9);
+            padding: 3rem;
+            border-radius: 12px;
+            border: 1px solid #2a2a2a;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-content p {
+            color: #c0c0c0;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .linkedin-btn {
+            background-color: #0077b5;
+            color: #ffffff;
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .linkedin-btn:hover {
+            background-color: #006399;
+            box-shadow: 0 0 20px rgba(0, 119, 181, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: rgba(10, 10, 10, 0.95);
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* === RESPONSIVE STYLES === */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .subtitle { font-size: 1.1rem; }
+            nav ul { flex-wrap: wrap; gap: 1rem; padding: 1rem; }
+            section { padding: 3rem 1rem; }
+            h2 { font-size: 2rem; }
+            .about-content, .contact-content { padding: 2rem; }
+            .skill-bubble { width: 100px; height: 100px; }
+            .skill-bubble span { font-size: 0.8rem; }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 2rem; }
+            nav ul { flex-direction: column; gap: 0.5rem; }
+            h2 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-image" id="bgImage"></div>
+    <div class="bg-overlay" id="bgOverlay"></div>
+
+    <nav>
+        <ul>
+            <li><a href="#accueil">Accueil</a></li>
+            <li><a href="#apropos">À propos</a></li>
+            <li><a href="#projets">Mes projets</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header id="accueil">
+        <h1 id="nameTitle">YOUNES DERFOUFI</h1>
+        <p class="subtitle">Ingénieur Géomètre Topographe</p>
+        <div class="contact-info">
+            <div class="contact-item"><span>📧</span><span>younesderfoufi111@gmail.com</span></div>
+            <div class="contact-item"><span>📍</span><span>Meknès, Maroc</span></div>
+        </div>
+    </header>
+
+    <main>
+        <section id="apropos">
+            <h2>À propos</h2>
+            <div class="about-content">
+                <p>
+                    Ingénieur géomètre topographe polyvalent, actuellement élève ingénieur en Sciences Géomatiques et Ingénierie Topographique à l'IAV Hassan II. Je dispose de compétences significatives dans les Systèmes d'Information Géographique (SIG), l'analyse de performances des solutions de bases de données spatiales et l'automatisation des processus géospatiaux.
+                </p>
+                <p>
+                    Passionné par l'innovation technologique dans le domaine de la géomatique, je m'investis particulièrement dans le benchmarking des solutions SIG et l'optimisation des workflows géospatiaux. Je suis <span class="clickable-name" id="clickableName">Younes Derfoufi</span>, et je serais ravi de collaborer avec vous sur vos projets.
+                </p>
+                <div class="easter-egg" id="easterEgg">
+                    <p>Je suis également producteur de musique dans le style EDM, et cofondateur de l'agence Framopia, spécialisée en photographie et vidéographie. Merci pour cette découverte approfondie sur moi — maintenant, on peut collaborer dans encore plus de domaines ! 🎶📸</p>
+                </div>
+                <div class="skills-chart">
+                    <div class="skills-bubble-container">
+                        <div class="skill-bubble"><span>Web Mapping</span></div>
+                        <div class="skill-bubble"><span>SIG Avancé</span></div>
+                        <div class="skill-bubble"><span>Bases de Données Spatiales</span></div>
+                        <div class="skill-bubble"><span>Topographie</span></div>
+                        <div class="skill-bubble"><span>Photogrammétrie</span></div>
+                        <div class="skill-bubble"><span>Automatisation</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projets">
+            <h2>Mes projets</h2>
+            <div class="projects-container">
+                </div>
+        </section>
+
+        <section id="contact">
+            <h2>Contact</h2>
+            <div class="contact-content">
+                <p>Ouvert à de nouvelles opportunités et collaborations, n'hésitez pas à me contacter pour discuter de vos projets.</p>
+                <a href="https://www.linkedin.com/in/younes-derfoufi-1b3925232/" target="_blank" class="linkedin-btn">Mon Profil LinkedIn</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Younes Derfoufi. Tous droits réservés.</p>
+    </footer>
+
+    <div class="project-popup" id="projectPopup">
+        <div class="popup-content">
+            <span class="close-btn" id="closePopupBtn">&times;</span>
+            <h3 id="popupTitle">Project Title</h3>
+            <p id="popupDescription">Project full description goes here.</p>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- PROJECT DATA ---
+            // Storing data here makes it easy to add/remove projects without touching the HTML.
+            const projectsData = [
+                {
+                    title: "Benchmarking des bases de données spatiales",
+                    shortDescription: "Analyse comparative des performances entre PostGIS et DuckDB Spatial.",
+                    fullDescription: "Ce projet académique visait à évaluer les performances de PostGIS et DuckDB Spatial pour des requêtes géospatiales complexes, incluant jointures spatiales et agrégations sur de grands ensembles de données. L'objectif était d'identifier les forces de chaque solution pour différents cas d'usage."
+                },
+                {
+                    title: "Stage à l'ANCFCC",
+                    shortDescription: "Application pratique des connaissances cadastrales au service du cadastre de Meknès.",
+                    fullDescription: "Durant mon stage à l'Agence Nationale de la Conservation Foncière, du Cadastre et de la Cartographie (ANCFCC), j'ai participé à la vérification de dossiers techniques, à la mise à jour de plans cadastraux via des logiciels de DAO, et à l'assistance sur le terrain pour des levés topographiques, offrant une vision concrète des procédures foncières."
+                },
+                {
+                    title: "Automatisation de Workflows SIG",
+                    shortDescription: "Développement de scripts Python pour automatiser des tâches répétitives dans QGIS.",
+                    fullDescription: "Création de scripts en utilisant la bibliothèque PyQGIS pour automatiser des tâches telles que le traitement par lots de couches de données, la génération de cartes thématiques, et l'exportation de rapports. Ce projet a permis de réduire significativement le temps de traitement manuel et d'assurer une meilleure cohérence des résultats."
+                }
+            ];
+
+            // --- GET ELEMENTS FROM THE DOM ---
+            const projectsContainer = document.querySelector('.projects-container');
+            const popup = document.getElementById('projectPopup');
+            const closePopupBtn = document.getElementById('closePopupBtn');
+            const popupTitle = document.getElementById('popupTitle');
+            const popupDescription = document.getElementById('popupDescription');
+            const clickableName = document.getElementById('clickableName');
+            const easterEgg = document.getElementById('easterEgg');
+            const sections = document.querySelectorAll('section, header');
+
+            // --- FUNCTIONS ---
+            
+            // Function to generate project cards and add them to the page
+            function renderProjects() {
+                projectsContainer.innerHTML = ''; // Clear existing projects
+                projectsData.forEach((project, index) => {
+                    const projectEl = document.createElement('div');
+                    projectEl.classList.add('project-item');
+                    projectEl.dataset.index = index; // Use data-attribute to link to the data array
+                    
+                    projectEl.innerHTML = `
+                        <h3>${project.title}</h3>
+                        <p>${project.shortDescription}</p>
+                    `;
+                    
+                    // Add click event listener to each project card
+                    projectEl.addEventListener('click', () => {
+                        openPopup(index);
+                    });
+                    
+                    projectsContainer.appendChild(projectEl);
+                });
+            }
+
+            // Function to open the popup with the correct project info
+            function openPopup(index) {
+                const project = projectsData[index];
+                popupTitle.textContent = project.title;
+                popupDescription.textContent = project.fullDescription;
+                popup.classList.add('active');
+                document.body.classList.add('blur-active'); // Apply blur to background
+            }
+
+            // Function to close the popup
+            function closePopup() {
+                popup.classList.remove('active');
+                document.body.classList.remove('blur-active'); // Remove blur
+            }
+            
+            // Function for scroll animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            // --- EVENT LISTENERS ---
+
+            // Render the projects when the page loads
+            renderProjects();
+
+            // Close popup when the 'x' button is clicked
+            closePopupBtn.addEventListener('click', closePopup);
+
+            // Close popup when clicking on the overlay (outside the content)
+            popup.addEventListener('click', (e) => {
+                if (e.target === popup) {
+                    closePopup();
+                }
+            });
+
+            // Close popup when the 'Escape' key is pressed
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && popup.classList.contains('active')) {
+                    closePopup();
+                }
+            });
+            
+            // Easter egg functionality
+            clickableName.addEventListener('click', () => {
+                easterEgg.style.display = easterEgg.style.display === 'block' ? 'none' : 'block';
+            });
+            
+            // Observe sections for scroll animations
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+        /* === HERO ANIMATIONS === */
+// Start typing on page load
+window.addEventListener('load', () => {
+    setTimeout(typeName, 500);
+});
+
+// Stats Counter Animation
+function animateCounter(element) {
+    const target = parseInt(element.getAttribute('data-count'));
+    const duration = 2000;
+    const increment = target / (duration / 16);
+    let current = 0;
+    
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+            element.textContent = target + '+';
+            clearInterval(timer);
+        } else {
+            element.textContent = Math.floor(current);
+        }
+    }, 16);
+}
+
+// Trigger counter when in viewport
+const statNumbers = document.querySelectorAll('.stat-number');
+const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            animateCounter(entry.target);
+            statsObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.5 });
+
+statNumbers.forEach(stat => statsObserver.observe(stat));
+
+// Smooth scroll for CTA buttons
+document.querySelectorAll('.cta-primary, .cta-secondary, .scroll-indicator-hero').forEach(link => {
+    link.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href && href.startsWith('#')) {
+            e.preventDefault();
+            document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
+
+// Mouse parallax effect on hero
+header.addEventListener('mousemove', (e) => {
+    const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+    const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+    
+    document.querySelectorAll('.floating-sphere').forEach((sphere, index) => {
+        const speed = (index + 1) * 0.5;
+        sphere.style.transform = `translate(${moveX * speed}px, ${moveY * speed}px)`;
+    });
+});
+// Typing animation for name
+const nameElement = document.getElementById('typedName');
+const fullName = 'Younes Derfoufi';
+let i = 0;
+
+function typeWriter() {
+    if (i < fullName.length) {
+        nameElement.textContent += fullName.charAt(i);
+        i++;
+        setTimeout(typeWriter, 100);
+    }
+}
+
+window.addEventListener('load', () => {
+    typeWriter();
+});
+    </script>
+</body>
+</html>
