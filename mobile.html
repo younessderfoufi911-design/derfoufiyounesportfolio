@@ -712,8 +712,720 @@
             cursor: pointer;
             text-decoration: underline;
         }
+        /* ========================================
+   ANIMATIONS & EFFETS PREMIUM MOBILE
+   ======================================== */
+
+/* === Page Entry Animation === */
+body {
+    opacity: 0;
+    animation: pageEnter 1s ease forwards;
+}
+
+@keyframes pageEnter {
+    to { opacity: 1; }
+}
+
+/* === Scroll Progress Indicator === */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, #dc2626, #ff6b6b);
+    z-index: 10001;
+    transition: width 0.1s ease;
+    box-shadow: 0 0 10px #dc2626;
+}
+
+/* === Floating Spheres Background === */
+.floating-spheres {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.sphere {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.2;
+    animation: floatSphere 15s ease-in-out infinite;
+}
+
+.sphere-1 {
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    top: -100px;
+    left: -100px;
+    animation-delay: 0s;
+}
+
+.sphere-2 {
+    width: 150px;
+    height: 150px;
+    background: linear-gradient(135deg, #ff6b6b, #dc2626);
+    bottom: -75px;
+    right: -75px;
+    animation-delay: 3s;
+}
+
+.sphere-3 {
+    width: 180px;
+    height: 180px;
+    background: linear-gradient(135deg, #b91c1c, #7f1d1d);
+    top: 50%;
+    right: -90px;
+    animation-delay: 6s;
+}
+
+@keyframes floatSphere {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, 30px) scale(1.1); }
+    66% { transform: translate(-20px, 50px) scale(0.9); }
+}
+
+/* === Glassmorphism Enhanced === */
+.glass-card {
+    background: rgba(26, 26, 26, 0.8);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(220, 38, 38, 0.1);
+}
+
+/* Apply glassmorphism to existing elements */
+.about-content,
+.contact-content,
+.timeline-content,
+.experience-card,
+.skill-category,
+.goal-card,
+.project-item,
+.popup-content {
+    background: rgba(26, 26, 26, 0.85) !important;
+    backdrop-filter: blur(15px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(15px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* === Animated Navigation === */
+nav {
+    animation: slideDown 0.5s ease;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.nav-menu {
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.nav-menu a {
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-menu a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(220, 38, 38, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.nav-menu a:active::before {
+    left: 100%;
+}
+
+/* === Ripple Effect on Touch === */
+.ripple-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple-effect::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.ripple-effect:active::after {
+    width: 300px;
+    height: 300px;
+}
+
+/* Apply ripple to buttons */
+.cta-btn,
+.download-btn,
+.linkedin-btn,
+.social-link {
+    position: relative;
+    overflow: hidden;
+}
+
+/* === Hero Badge Enhanced === */
+.hero-badge {
+    animation: badgeFloat 3s ease-in-out infinite;
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+}
+
+@keyframes badgeFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+/* === Text Gradient Animation === */
+.gradient-text,
+.hero-name {
+    background-size: 200% auto;
+    animation: gradientFlow 3s linear infinite;
+}
+
+@keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+/* === Stats Counter Animation === */
+.stat-number {
+    display: inline-block;
+    animation: countUp 1s ease-out;
+}
+
+@keyframes countUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* === Social Links Hover Effect === */
+.social-link {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.social-link:active {
+    transform: scale(0.9) rotate(5deg);
+}
+
+/* === Section Fade In on Scroll === */
+section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+}
+
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* === Timeline Enhanced === */
+.timeline-item {
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: slideInLeft 0.6s ease forwards;
+}
+
+.timeline-item:nth-child(1) { animation-delay: 0.1s; }
+.timeline-item:nth-child(2) { animation-delay: 0.2s; }
+.timeline-item:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes slideInLeft {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.timeline-dot {
+    animation: pulseDot 2s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+    0%, 100% {
+        box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 0 6px rgba(220, 38, 38, 0.4);
+        transform: scale(1.1);
+    }
+}
+
+/* === Experience Cards Slide In === */
+.experience-card {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.experience-card:nth-child(1) { animation-delay: 0.1s; }
+.experience-card:nth-child(2) { animation-delay: 0.2s; }
+.experience-card:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.experience-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(220, 38, 38, 0.1), transparent);
+    transition: left 0.8s ease;
+}
+
+.experience-card:active::before {
+    left: 100%;
+}
+
+/* === Goal Cards Flip Animation === */
+.goal-card {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.goal-card:active {
+    transform: rotateY(10deg) scale(0.95);
+}
+
+.goal-icon {
+    animation: iconBounce 2s ease-in-out infinite;
+}
+
+@keyframes iconBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* === Skills Bubbles Floating === */
+.skill-bubble {
+    animation: bubbleFloat 3s ease-in-out infinite;
+    transition: all 0.3s ease;
+}
+
+.skill-bubble:nth-child(1) { animation-delay: 0s; }
+.skill-bubble:nth-child(2) { animation-delay: 0.3s; }
+.skill-bubble:nth-child(3) { animation-delay: 0.6s; }
+.skill-bubble:nth-child(4) { animation-delay: 0.9s; }
+.skill-bubble:nth-child(5) { animation-delay: 1.2s; }
+.skill-bubble:nth-child(6) { animation-delay: 1.5s; }
+
+@keyframes bubbleFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.skill-bubble:active {
+    transform: scale(1.1) translateY(-5px);
+    background: linear-gradient(135deg, rgba(220, 38, 38, 0.4), rgba(220, 38, 38, 0.15));
+    border-color: rgba(220, 38, 38, 0.6);
+    box-shadow: 0 0 20px rgba(220, 38, 38, 0.4);
+}
+
+/* === Skill Categories Stagger === */
+.skill-category {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.skill-category:nth-child(1) { animation-delay: 0.1s; }
+.skill-category:nth-child(2) { animation-delay: 0.2s; }
+.skill-category:nth-child(3) { animation-delay: 0.3s; }
+.skill-category:nth-child(4) { animation-delay: 0.4s; }
+
+.skill-category li {
+    transition: all 0.2s ease;
+}
+
+.skill-category li:active {
+    color: #dc2626;
+    transform: translateX(8px);
+    font-weight: 600;
+}
+
+/* === Project Cards 3D Effect === */
+.project-item {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.project-item:active {
+    transform: scale(0.98) rotateX(2deg);
+    box-shadow: 0 15px 40px rgba(220, 38, 38, 0.3);
+}
+
+/* === Popup Enhanced === */
+.project-popup {
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.popup-content {
+    animation: popupSlideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes popupSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.close-btn {
+    transition: all 0.3s ease;
+}
+
+.close-btn:active {
+    transform: rotate(90deg) scale(0.9);
+    color: #dc2626;
+}
+
+.download-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.download-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.download-btn:active::before {
+    left: 100%;
+}
+
+/* === Contact Details Animation === */
+.contact-detail-item {
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: slideInRight 0.6s ease forwards;
+}
+
+.contact-detail-item:nth-child(1) { animation-delay: 0.1s; }
+.contact-detail-item:nth-child(2) { animation-delay: 0.2s; }
+
+@keyframes slideInRight {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* === LinkedIn Button Pulse === */
+.linkedin-btn {
+    animation: buttonPulse 3s ease-in-out infinite;
+}
+
+@keyframes buttonPulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(0, 119, 181, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(0, 119, 181, 0);
+    }
+}
+
+.linkedin-btn:active {
+    transform: scale(0.95);
+}
+
+/* === Easter Egg Reveal === */
+.easter-egg {
+    animation: easterReveal 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes easterReveal {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.9);
+        filter: blur(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+/* === Loading Spinner (pour les futures fonctionnalités) === */
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(220, 38, 38, 0.3);
+    border-top-color: #dc2626;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* === Topographie Background Animations === */
+.topo-grid {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    opacity: 0.05;
+    background-image: 
+        linear-gradient(rgba(220, 38, 38, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(220, 38, 38, 0.1) 1px, transparent 1px);
+    background-size: 30px 30px;
+    animation: gridMove 60s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes gridMove {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(30px, 30px); }
+}
+
+/* === GPS Points Animation === */
+.gps-points {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.gps-point {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #dc2626;
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: gpsBlink 3s ease-in-out infinite;
+}
+
+.gps-point::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border: 1px solid rgba(220, 38, 38, 0.3);
+    border-radius: 50%;
+    animation: radar 3s ease-out infinite;
+}
+
+@keyframes gpsBlink {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.2); }
+}
+
+@keyframes radar {
+    0% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(3);
+        opacity: 0;
+    }
+}
+
+.gps-point:nth-child(1) { top: 20%; left: 15%; animation-delay: 0s; }
+.gps-point:nth-child(2) { top: 40%; left: 80%; animation-delay: 1s; }
+.gps-point:nth-child(3) { top: 65%; left: 25%; animation-delay: 2s; }
+.gps-point:nth-child(4) { top: 85%; left: 70%; animation-delay: 1.5s; }
+
+/* === Contour Lines === */
+.contour-lines {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.contour-line {
+    position: absolute;
+    width: 120%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(220, 38, 38, 0.2), transparent);
+    animation: contourFloat 25s ease-in-out infinite;
+    left: -10%;
+}
+
+.contour-line:nth-child(1) { top: 15%; animation-delay: 0s; }
+.contour-line:nth-child(2) { top: 35%; animation-delay: 3s; }
+.contour-line:nth-child(3) { top: 55%; animation-delay: 6s; }
+.contour-line:nth-child(4) { top: 75%; animation-delay: 9s; }
+
+@keyframes contourFloat {
+    0%, 100% {
+        transform: translateX(0) translateY(0);
+        opacity: 0.2;
+    }
+    50% {
+        transform: translateX(20px) translateY(-10px);
+        opacity: 0.4;
+    }
+}
+
+/* === Smooth Scroll Behavior === */
+html {
+    scroll-behavior: smooth;
+}
+
+/* === Custom Scrollbar === */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #101010;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #dc2626, #b91c1c);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #ff6b6b, #dc2626);
+}
+
+/* === Text Selection Styling === */
+::selection {
+    background: rgba(220, 38, 38, 0.3);
+    color: #ffffff;
+}
+
+::-moz-selection {
+    background: rgba(220, 38, 38, 0.3);
+    color: #ffffff;
+}
+
+/* === Focus Visible for Accessibility === */
+*:focus-visible {
+    outline: 2px solid #dc2626;
+    outline-offset: 2px;
+}
+
+/* === Performance Optimizations === */
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+img, video {
+    will-change: transform;
+}
+
+/* === Dark Mode Support (si besoin) === */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #000000;
+    }
+}
+
+/* === Reduced Motion for Accessibility === */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
     </style>
 </head>
+    <!-- Scroll Progress -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- Floating Spheres -->
+<div class="floating-spheres">
+    <div class="sphere sphere-1"></div>
+    <div class="sphere sphere-2"></div>
+    <div class="sphere sphere-3"></div>
+</div>
+
+<!-- Topographie Grid -->
+<div class="topo-grid"></div>
+
+<!-- GPS Points -->
+<div class="gps-points">
+    <div class="gps-point"></div>
+    <div class="gps-point"></div>
+    <div class="gps-point"></div>
+    <div class="gps-point"></div>
+</div>
+
+<!-- Contour Lines -->
+<div class="contour-lines">
+    <div class="contour-line"></div>
+    <div class="contour-line"></div>
+    <div class="contour-line"></div>
+    <div class="contour-line"></div>
+</div>
 <body>
     <div class="bg-image"></div>
     <div class="bg-overlay"></div>
@@ -1059,6 +1771,96 @@
             }
             lastTouchEnd = now;
         }, false);
+        // Scroll Progress Bar
+window.addEventListener('scroll', () => {
+    const scrollTop = window.pageYOffset;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+    document.getElementById('scrollProgress').style.width = scrollPercent + '%';
+});
+
+// Intersection Observer pour les sections
+const observerOptions = {
+    threshold: 0.15,
+    rootMargin: '0px 0px -100px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('section').forEach(section => {
+    observer.observe(section);
+});
+
+// Ripple Effect on Touch
+document.querySelectorAll('.ripple-effect, .cta-btn, .social-link, .project-item').forEach(elem => {
+    elem.classList.add('ripple-effect');
+});
+
+// Parallax Effect on Scroll (légère pour mobile)
+window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    const spheres = document.querySelectorAll('.sphere');
+    
+    spheres.forEach((sphere, index) => {
+        const speed = (index + 1) * 0.3;
+        sphere.style.transform = `translateY(${scrolled * speed}px)`;
+    });
+});
+
+// Vibration on Important Actions (si supporté)
+function vibrateDevice() {
+    if ('vibrate' in navigator) {
+        navigator.vibrate(50);
+    }
+}
+
+// Add vibration to CTA buttons
+document.querySelectorAll('.cta-btn, .download-btn').forEach(btn => {
+    btn.addEventListener('touchstart', vibrateDevice);
+});
+
+// Lazy Loading for Better Performance
+if ('IntersectionObserver' in window) {
+    const lazyObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('loaded');
+                lazyObserver.unobserve(entry.target);
+            }
+        });
+    });
+
+    document.querySelectorAll('.skill-bubble, .project-item, .experience-card').forEach(el => {
+        lazyObserver.observe(el);
+    });
+}
+
+// Smooth Scroll Enhancement
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            const offset = 60; // Navigation height
+            const targetPosition = target.offsetTop - offset;
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// Add loading class to body when page loads
+window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+});
     </script>
 </body>
 </html>
